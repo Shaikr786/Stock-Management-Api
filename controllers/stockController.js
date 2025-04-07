@@ -23,26 +23,30 @@ const Product = require('../models/Product');
 
 const stockOverview = async (req, res) => {
     try {
-        console.log("Stock overview API called"); // 1️⃣ Check if API is called
+        console.log("Stock overview API called"); // Debug log
 
         const products = await Product.find(); // Fetch all products
-       
+
         let totalItems = 0;
         let totalSold = 0;
         let totalRevenue = 0;
         let soldItems = [];
 
         products.forEach(product => {
-            totalItems += product.quantityInStock || 0;
-            totalSold += product.itemsSold || 0;
-            totalRevenue += product.totalRevenue || 0;
+            const quantityInStock = Number(product.quantityInStock) || 0;
+            const itemsSold = Number(product.itemsSold) || 0;
+            const totalRevenueGenerated = Number(product.totalRevenue) || 0;
 
-            if (product.itemsSold && product.itemsSold > 0) { // 3️⃣ Ensure condition is met
+            totalItems += quantityInStock;
+            totalSold += itemsSold;
+            totalRevenue += totalRevenueGenerated;
+
+            if (itemsSold > 0) { // Ensure condition is met
                 soldItems.push({
                     name: product.name,
                     category: product.category,
-                    quantitySold: product.itemsSold,
-                    revenueGenerated: product.totalRevenue
+                    quantitySold: itemsSold,
+                    revenueGenerated: totalRevenueGenerated
                 });
             }
         });
@@ -58,7 +62,6 @@ const stockOverview = async (req, res) => {
         res.status(500).json({ message: "Server Error", error: error.message });
     }
 };
-
 
 module.exports = {
     stockOverview
