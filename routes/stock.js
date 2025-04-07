@@ -4,6 +4,6 @@ const {protect, adminOnly} = require("../middleware/authMiddleware");
 
 const router = express.Router();
 // Get stock overview (total items sold and revenue)
-router.get("/stock-overview", protect, adminOnly, stockOverview);
+router.get("/stock-overview", protect, stockOverview);
 
 module.exports = router;

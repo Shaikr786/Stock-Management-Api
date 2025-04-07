@@ -54,26 +54,6 @@ const deleteProduct = async (req, res) => {
     }
 };
 
-// // Fetch stock data
-// const getStock = async (req, res) => {
-//     try {
-//         const products = await Product.find();
-//         let totalItems = 0;
-//         let totalSold = 0;
-//         let totalRevenue = 0;
-
-//         products.forEach(product => {
-//             totalItems += product.quantityInStock;
-//             totalSold += product.itemsSold;
-//             totalRevenue += product.itemsSold * product.price;
-//         });
-
-//         res.status(200).json({ totalItems, totalSold, totalRevenue });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error fetching stock data', error });
-//     }
-// };
-
 
 
 // Sell Product and Update Stock
